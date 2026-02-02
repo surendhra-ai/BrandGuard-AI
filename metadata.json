@@ -1,0 +1,5 @@
+{
+  "name": "BrandGuard AI - Compliance Monitor",
+  "description": "An AI-powered system to detect discrepancies between official project reference data and published landing pages using Gemini 1.5/3.0.",
+  "requestFramePermissions": []
+}
