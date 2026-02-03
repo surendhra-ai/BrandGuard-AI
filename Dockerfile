@@ -21,6 +21,9 @@ RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:stable-alpine AS production-stage
+# Copy your custom config to override the default
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
+
+EXPOSE 3200
 CMD ["nginx", "-g", "daemon off;"]
