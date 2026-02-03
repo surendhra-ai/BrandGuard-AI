@@ -1,5 +1,6 @@
 
-import { GoogleGenAI, Type } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 import { AnalysisResponse, AppConfig } from "../types";
 
 // Helper to fetch image URL and convert to base64
