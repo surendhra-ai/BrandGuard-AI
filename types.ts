@@ -1,3 +1,4 @@
+
 export enum DiscrepancySeverity {
   CRITICAL = 'CRITICAL', // e.g., Wrong Price, Wrong Location
   MAJOR = 'MAJOR',       // e.g., Missing Amenity, Wrong Date
@@ -40,7 +41,7 @@ export interface ScrapeResult {
 }
 
 // Gemini Response Schema Structure
-export interface GeminiAnalysisResponse {
+export interface AnalysisResponse {
   complianceScore: number;
   discrepancies: {
     field: string;
@@ -65,7 +66,7 @@ export interface LogEntry {
   userId: string;
   userName: string;
   timestamp: string;
-  action: 'LOGIN' | 'LOGOUT' | 'ANALYSIS_RUN' | 'SCRAPE_URL' | 'VIEW_HISTORY';
+  action: 'LOGIN' | 'LOGOUT' | 'ANALYSIS_RUN' | 'SCRAPE_URL' | 'VIEW_HISTORY' | 'FEEDBACK_CONFIRMED' | 'FEEDBACK_REJECTED';
   details: string;
 }
 
@@ -76,4 +77,17 @@ export interface AnalysisSession {
   projectName: string;
   referenceUrl: string;
   results: PageAnalysis[];
+}
+
+// --- Configuration Types ---
+
+export type LLMProvider = 'GEMINI' | 'OPENAI';
+
+export interface AppConfig {
+  supabaseUrl: string;
+  supabaseKey: string;
+  firecrawlKey: string;
+  llmProvider: LLMProvider;
+  llmApiKey: string;
+  llmModel: string; // e.g., 'gemini-1.5-flash', 'gpt-4o'
 }

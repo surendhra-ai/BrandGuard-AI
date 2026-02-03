@@ -1,12 +1,45 @@
-import { createClient } from '@supabase/supabase-js';
 
-// Use environment variables if available, otherwise use the provided credentials
-// This ensures the app works immediately in the preview environment.
-const supabaseUrl = process.env.SUPABASE_URL || 'https://supabase.trusync.cloud';
-const supabaseKey = process.env.SUPABASE_KEY || 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzdXBhYmFzZSIsImlhdCI6MTc2MTE1NjAwMCwiZXhwIjo0OTE2ODI5NjAwLCJyb2xlIjoiYW5vbiJ9.-QMXM4M6Jpr2IYdpqd2QcUioKRz4b3N90c1Rxk_RUIM';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { AppConfig } from '../types';
 
-if (!supabaseUrl || !supabaseKey) {
-  console.warn('Supabase URL or Key is missing. Database features will fail.');
-}
+let supabaseInstance: SupabaseClient | null = null;
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+// Helper to get config from local storage to initialize immediately if possible
+const getStoredConfig = (): Partial<AppConfig> => {
+  try {
+    const stored = localStorage.getItem('bg_app_config');
+    return stored ? JSON.parse(stored) : {};
+  } catch {
+    return {};
+  }
+};
+
+export const initSupabase = (url: string, key: string): SupabaseClient => {
+  if (!url || !key) {
+    throw new Error("Supabase URL and Key are required.");
+  }
+  supabaseInstance = createClient(url, key);
+  return supabaseInstance;
+};
+
+export const getSupabase = (): SupabaseClient => {
+  if (supabaseInstance) return supabaseInstance;
+
+  // Try to hydrate from storage on first call
+  const config = getStoredConfig();
+  if (config.supabaseUrl && config.supabaseKey) {
+    supabaseInstance = createClient(config.supabaseUrl, config.supabaseKey);
+    return supabaseInstance;
+  }
+
+  // Fallback to env vars if available (for dev/preview)
+  const envUrl = process.env.SUPABASE_URL;
+  const envKey = process.env.SUPABASE_KEY;
+
+  if (envUrl && envKey) {
+    supabaseInstance = createClient(envUrl, envKey);
+    return supabaseInstance;
+  }
+
+  throw new Error("Database not configured. Please open settings and configure Supabase.");
+};
