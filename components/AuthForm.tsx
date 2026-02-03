@@ -40,10 +40,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-900 dark:bg-black flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-           <Shield className="h-12 w-12 text-indigo-500" />
+            <img 
+                src="https://raw.githubusercontent.com/stackblitz/stackblitz-images/main/tridasa-logo.jpg" 
+                alt="Tridasa Logo" 
+                className="h-20 w-auto rounded bg-white p-2"
+            />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
           BrandGuard AI
@@ -54,11 +58,11 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white dark:bg-slate-800 py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             {!isLogin && (
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-slate-300">
                   Full Name
                 </label>
                 <div className="mt-1">
@@ -69,14 +73,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-slate-300">
                 Email address
               </label>
               <div className="mt-1">
@@ -88,16 +92,16 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-white rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
             </div>
 
             {error && (
-              <div className="rounded-md bg-red-50 p-4">
+              <div className="rounded-md bg-red-50 dark:bg-red-900/20 p-4">
                 <div className="flex">
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">{error}</h3>
+                    <h3 className="text-sm font-medium text-red-800 dark:text-red-300">{error}</h3>
                   </div>
                 </div>
               </div>
@@ -118,10 +122,10 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
           <div className="mt-6">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
+                <div className="w-full border-t border-gray-300 dark:border-slate-600" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
+                <span className="px-2 bg-white dark:bg-slate-800 text-gray-500 dark:text-slate-400">
                   {isLogin ? 'New to BrandGuard?' : 'Already have an account?'}
                 </span>
               </div>
@@ -130,7 +134,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ onLogin }) => {
             <div className="mt-6">
               <button
                 onClick={() => { setIsLogin(!isLogin); setError(null); }}
-                className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="w-full flex justify-center py-2 px-4 border border-gray-300 dark:border-slate-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 {isLogin ? 'Create an account' : 'Sign in to existing account'}
               </button>
